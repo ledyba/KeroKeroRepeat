@@ -1,7 +1,6 @@
 extern crate clap;
 
 use clap::{App, Arg};
-use std::error::Error;
 
 mod analyzer;
 
@@ -32,7 +31,7 @@ fn main() {
       .validator(is_valid_ext));
   let matches = app.get_matches();
   let input = matches.value_of("input").unwrap();
-  let output = matches.value_of("input").unwrap();
+  let output = matches.value_of("output").unwrap();
   print!("{} -> {}\n", input, output);
   let analyzer = analyzer::Analyzer::open(input);
   if analyzer.is_err() {
