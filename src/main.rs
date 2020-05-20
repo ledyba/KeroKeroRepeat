@@ -38,4 +38,5 @@ fn main() {
   if analyzer.is_err() {
     print!("Failed to open input: {}\n", analyzer.err().unwrap().to_string())
   }
+  
 }

@@ -1,20 +1,37 @@
 extern crate hound;
 
-use hound::WavReader;
+use hound::{WavReader, WavSpec, WavSamples};
 use std::{error, io, fs};
 
-pub(crate) struct Analyzer {
-  reader: WavReader<io::BufReader<fs::File>>
+pub struct Analyzer {
+  spec: WavSpec,
+  data: Vec<Vec<f32>>
 }
 
 impl Analyzer {
   pub(crate) fn open(file: &str) -> Result<Analyzer, Box<dyn error::Error>> {
-    let reader = WavReader::open(file);
-    if reader.is_err() {
-      return Result::Err(Box::new(reader.err().unwrap()));
+    let opener = WavReader::open(file);
+    if opener.is_err() {
+      return Result::Err(Box::new(opener.err().unwrap()));
+    }
+    let mut reader = opener.unwrap();
+    let spec = reader.spec();
+    let mut data: Vec<Vec<f32>> = Vec::new();
+    let iter = reader.samples::<f32>();
+    let mut chan = 0;
+    for _ in 0..spec.channels {
+      data.push(Vec::new());
+    }
+    for v in iter {
+      if v.is_err() {
+        return Result::Err(Box::new(v.err().unwrap()));
+      }
+      data[chan].push(v.unwrap());
+      chan = (chan + 1) % (spec.channels as usize);
     }
     Result::Ok(Analyzer{
-      reader: reader.unwrap()
+      spec,
+      data
     })
   }
 }

@@ -13,7 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be503551-7c9b-4261-b6f9-e377d78cf938" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analyzer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzer.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +46,7 @@
   <component name="PropertiesComponent">
     <property name="cf.first.check.clang-format" value="false" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
     <configuration name="Run KeroKeroRepeat" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
@@ -81,7 +83,8 @@
       <workItem from="1589785917084" duration="62000" />
       <workItem from="1589787129489" duration="1240000" />
       <workItem from="1589806281643" duration="1541000" />
-      <workItem from="1589815931194" duration="2028000" />
+      <workItem from="1589815931194" duration="8214000" />
+      <workItem from="1589969697228" duration="393000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1589817931204</created>
@@ -90,49 +93,72 @@
       <option name="project" value="LOCAL" />
       <updated>1589817931204</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add .gitignoe">
+      <created>1589817989274</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1589817989274</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="add .gitignoe" />
+    <option name="LAST_COMMIT_MESSAGE" value="add .gitignoe" />
   </component>
   <component name="WindowStateProjectService">
     <state x="208" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589816894192">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
     <state x="208" y="177" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.40.1504.963@0.40.1504.963" timestamp="1589816894192" />
-    <state x="382" y="87" key="CommitChangelistDialog2" timestamp="1589817930809">
+    <state x="382" y="87" key="CommitChangelistDialog2" timestamp="1589817988834">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
-    <state x="382" y="87" key="CommitChangelistDialog2/0.40.1504.963@0.40.1504.963" timestamp="1589817930809" />
+    <state x="382" y="87" key="CommitChangelistDialog2/0.40.1504.963@0.40.1504.963" timestamp="1589817988834" />
     <state x="144" y="119" key="DiffContextDialog" timestamp="1589817915714">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
     <state x="144" y="119" key="DiffContextDialog/0.40.1504.963@0.40.1504.963" timestamp="1589817915714" />
-    <state width="1461" height="256" key="GridCell.Tab.0.bottom" timestamp="1589817899204">
+    <state width="1461" height="256" key="GridCell.Tab.0.bottom" timestamp="1589969635748">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
-    <state width="1461" height="256" key="GridCell.Tab.0.bottom/0.40.1504.963@0.40.1504.963" timestamp="1589817899204" />
-    <state width="1461" height="256" key="GridCell.Tab.0.center" timestamp="1589817899204">
+    <state width="1461" height="256" key="GridCell.Tab.0.bottom/0.40.1504.963@0.40.1504.963" timestamp="1589969635748" />
+    <state width="1461" height="256" key="GridCell.Tab.0.center" timestamp="1589969635748">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
-    <state width="1461" height="256" key="GridCell.Tab.0.center/0.40.1504.963@0.40.1504.963" timestamp="1589817899204" />
-    <state width="1461" height="256" key="GridCell.Tab.0.left" timestamp="1589817899204">
+    <state width="1461" height="256" key="GridCell.Tab.0.center/0.40.1504.963@0.40.1504.963" timestamp="1589969635748" />
+    <state width="1461" height="256" key="GridCell.Tab.0.left" timestamp="1589969635748">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
-    <state width="1461" height="256" key="GridCell.Tab.0.left/0.40.1504.963@0.40.1504.963" timestamp="1589817899204" />
-    <state width="1461" height="256" key="GridCell.Tab.0.right" timestamp="1589817899204">
+    <state width="1461" height="256" key="GridCell.Tab.0.left/0.40.1504.963@0.40.1504.963" timestamp="1589969635748" />
+    <state width="1461" height="256" key="GridCell.Tab.0.right" timestamp="1589969635748">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
-    <state width="1461" height="256" key="GridCell.Tab.0.right/0.40.1504.963@0.40.1504.963" timestamp="1589817899204" />
-    <state x="254" y="167" key="SettingsEditor" timestamp="1589798992651">
+    <state width="1461" height="256" key="GridCell.Tab.0.right/0.40.1504.963@0.40.1504.963" timestamp="1589969635748" />
+    <state x="254" y="167" key="SettingsEditor" timestamp="1589969687093">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
-    <state x="254" y="167" key="SettingsEditor/0.40.1504.963@0.40.1504.963" timestamp="1589798992651" />
+    <state x="254" y="167" key="SettingsEditor/0.40.1504.963@0.40.1504.963" timestamp="1589969687093" />
+    <state x="459" y="121" width="587" height="801" key="find.popup" timestamp="1589825116780">
+      <screen x="0" y="40" width="1504" height="963" />
+    </state>
+    <state x="459" y="121" width="587" height="801" key="find.popup/0.40.1504.963@0.40.1504.963" timestamp="1589825116780" />
     <state x="409" y="244" key="run.anything.popup" timestamp="1589785938934">
       <screen x="0" y="40" width="1504" height="963" />
     </state>
     <state x="409" y="244" key="run.anything.popup/0.40.1504.963@0.40.1504.963" timestamp="1589785938934" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/analyzer.rs</url>
+          <line>12</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
