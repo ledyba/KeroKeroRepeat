@@ -1,6 +1,7 @@
 extern crate clap;
 
 use clap::{App, Arg};
+use std::process::exit;
 
 mod analyzer;
 
@@ -32,10 +33,13 @@ fn main() {
   let matches = app.get_matches();
   let input = matches.value_of("input").unwrap();
   let output = matches.value_of("output").unwrap();
-  print!("{} -> {}\n", input, output);
-  let analyzer = analyzer::Analyzer::open(input);
+  print!("KeroKero: {} -> {}\n", input, output);
+  let analyzer = analyzer::Analyzer::open(input, 0.5);
   if analyzer.is_err() {
-    print!("Failed to open input: {}\n", analyzer.err().unwrap().to_string())
+    print!("Failed to open input: {}\n", analyzer.err().unwrap().to_string());
+    exit(-1);
   }
-  
+  let analyzer = analyzer.unwrap();
+  print!("Loaded {} samples in {} channels ({} sec)", analyzer.total_samples(), analyzer.channels(), analyzer.duration());
+  analyzer.calc_range();
 }
