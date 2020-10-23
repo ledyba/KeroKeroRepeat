@@ -15,7 +15,7 @@ A software to create endless-gif-loops from animation video files.
  - Input: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/input.wav)
  - Output: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/output.wav)
 
-In output.wav, ( sec -> sec) repeats 5 times.
+In output.wav, 6.137sec to 53.825sec in input.wav repeats 3 times.
 
 ### Use single binary
 
@@ -45,7 +45,7 @@ OPTIONS:
     -i, --input <input>                                    input wave file
         --minimum-pyramid-size <minimum-pyramid-size>      initial search window [default: 1024]
     -o, --output <output>                                  output wave file
-        --repeat-count <repeat-count>                      repeat window [default: 10]
+    -c, --repeat-count <repeat-count>                      repeat window [default: 10]
         --repeat-window <repeat-window>                    repeat window [default: 2048]
         --search-window <search-window>                    intermediate search window [default: 512]
 ```

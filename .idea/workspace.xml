@@ -16,7 +16,9 @@
       <change beforePath="$PROJECT_DIR$/.github/workflows/build-single-binary-on-linux.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-single-binary-on-linux.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/generate-example-files.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/generate-example-files.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analyzer/sample.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzer/sample.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +56,7 @@
   <component name="RunManager">
     <configuration name="Run KeroKeroRepeat" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="channel" value="DEFAULT" />
-      <option name="command" value="run --package kero_kero_repeat --bin KeroKeroRepeat -- -i input.wav -o output.wav" />
+      <option name="command" value="run --package kero_kero_repeat --bin KeroKeroRepeat -- -i input.wav -o output.wav -c 3 --minimum-pyramid-size 4096 ---initial-search-window 768 --search-window 2048" />
       <option name="allFeatures" value="false" />
       <option name="emulateTerminal" value="false" />
       <option name="backtrace" value="SHORT" />

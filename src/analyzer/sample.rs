@@ -101,10 +101,12 @@ impl Sample {
   pub fn write_back(&self, output: &str, from: usize, to: usize, window: usize, repeat_count: usize) -> Result<usize, Box<dyn Error>> {
     let mut writer = hound::WavWriter::create(output, self.spec)?;
     let mut written: usize = 0;
+    /*
     for idx in 0..from * self.channels() {
       writer.write_sample((self.data[idx] * (i16::MAX as f32)) as i16)?;
       written += 1;
     }
+    */
     let repeat_len = to-from;
     let repeat_samples = repeat_len*self.channels();
     let repeat_range = 0..repeat_samples;
@@ -131,10 +133,12 @@ impl Sample {
         written += 1;
       }
     }
+    /*
     for idx in to * self.channels()..self.length * self.channels() {
       writer.write_sample((self.data[idx] * (i16::MAX as f32)) as i16)?;
       written += 1;
     }
+    */
     writer.flush()?;
     Ok(written)
   }
