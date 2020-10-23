@@ -5,5 +5,5 @@ cd "${PROJ_PATH}/.."
 
 mkdir -p artifacts
 
-docker build -f 'Dockerfile'
+docker build -f 'Dockerfile' .
 docker run --rm -v "${PWD}/artifacts:/artifacts" --entrypoint="cp" KeroKeroRepeat "/KeroKeroRepeat" "/artifacts"
