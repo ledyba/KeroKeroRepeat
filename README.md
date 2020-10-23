@@ -4,15 +4,19 @@
 [![Build on macOS](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20on%20macOS/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+on+macOS%22)
 [![Build on Windows](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20on%20Windows/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+on+Windows%22)  
 [![Build single binary on Linux](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20single%20binary%20on%20Linux/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+single+binary+on+Linux%22)
-[![Publish Docker image](https://github.com/ledyba/KeroKeroRepeat/workflows/Publish%20Docker%20image/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Publish+Docker+image%22)
 
 A software to create endless-gif-loops from animation video files.
 
-与えられたwavファイルを解析して、つなぎ合わせてリピートしても不自然でない部分をつなげてリピートしたwavファイルを出力するソフトウェア
+与えられたwavファイルを解析して、つなぎ合わせてリピートしても不自然でない部分をつなげてリピートしたwavファイルを出力するソフトウェア。
+
+## Demo
+
+ - Input: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/input.wav)
+ - Output: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/output.wav)
+
+In output.wav, ( sec -> sec) repeats 5 times.
 
 ### Use single binary
-
-### Use docker image
 
 ### Build with Cargo
 
@@ -44,4 +48,3 @@ OPTIONS:
         --repeat-window <repeat-window>                    repeat window [default: 2048]
         --search-window <search-window>                    intermediate search window [default: 512]
 ```
-
