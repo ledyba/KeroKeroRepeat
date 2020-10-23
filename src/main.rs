@@ -69,6 +69,7 @@ fn main() {
     .arg(Arg::with_name("repeat-count")
       .help("repeat window")
       .long("repeat-count")
+      .short("-c")
       .default_value("10")
       .required(false)
       .takes_value(true)
