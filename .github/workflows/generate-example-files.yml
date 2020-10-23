@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Generate output.wav
-        run: run --package kero_kero_repeat --bin KeroKeroRepeat -- -i input.wav -o output.wav -c 3
+        run: cargo run --package kero_kero_repeat --bin KeroKeroRepeat -- -i input.wav -o output.wav -c 3
       - name: Upload result
         uses: actions/upload-artifact@v2
         with:
