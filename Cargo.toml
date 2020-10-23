@@ -5,6 +5,7 @@ authors = ["kaede"]
 edition = "2018"
 
 [[bin]]
+# https://github.com/rust-lang/rust/issues/45127#issuecomment-662325494
 name = "KeroKeroRepeat"
 path = "src/main.rs"
 
