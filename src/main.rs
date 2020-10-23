@@ -34,9 +34,13 @@ fn main() {
   let input = matches.value_of("input").unwrap();
   let output = matches.value_of("output").unwrap();
   print!("KeroKero: {} -> {}\n", input, output);
+  if !std::path::Path::new(&input).exists() {
+    eprint!("File not found: {}\n", input);
+    exit(-1);
+  }
   let analyzer = analyzer::Analyzer::open(input, 0.5);
   if analyzer.is_err() {
-    print!("Failed to open input: {}\n", analyzer.err().unwrap().to_string());
+    eprint!("Failed to open input: {}\n", analyzer.err().unwrap().to_string());
     exit(-1);
   }
   let analyzer = analyzer.unwrap();
