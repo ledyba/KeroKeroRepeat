@@ -6,7 +6,7 @@
 [![Build single binary on Linux](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20single%20binary%20on%20Linux/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+single+binary+on+Linux%22)
 [![Generate example files](https://github.com/ledyba/KeroKeroRepeat/workflows/Generate%20example%20files/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Generate+example+files%22)
 
-A software to create endless-gif-loops from animation video files.
+A software to create looped wave file from audio files.
 
 与えられたwavファイルを解析して、つなぎ合わせてリピートしても不自然でない部分をつなげてリピートしたwavファイルを出力するソフトウェア。
 
