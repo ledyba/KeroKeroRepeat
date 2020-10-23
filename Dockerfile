@@ -9,9 +9,9 @@ FROM scratch
 
 WORKDIR /
 
-COPY --from=builder /home/rust/src/target/x86_64-unknown-linux-musl/release/kerokero_repeat kerokero_repeat
+COPY --from=builder /home/rust/src/target/x86_64-unknown-linux-musl/release/KeroKeroRepeat KeroKeroRepeat
 
-RUN ["chmod", "a+x", "/kerokero_repeat"]
+RUN ["chmod", "a+x", "/KeroKeroRepeat"]
 
 EXPOSE 8080
-ENTRYPOINT ["/kerokero_repeat"]
+ENTRYPOINT ["/KeroKeroRepeat"]
