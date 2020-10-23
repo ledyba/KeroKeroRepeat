@@ -20,7 +20,7 @@ jobs:
         run: |
           cargo run --package kero_kero_repeat --bin KeroKeroRepeat -- \
             -i input.wav -o output.wav -c 3 \
-            --minimum-pyramid-size 2048 ---initial-search-window 768 --search-window 1536 --repeat-window 44100
+            --minimum-pyramid-size 2048 ---initial-search-window 512 --search-window 1024 --repeat-window 44100
       - name: Upload result
         uses: actions/upload-artifact@v2
         with:
