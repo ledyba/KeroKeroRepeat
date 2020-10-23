@@ -38,7 +38,7 @@ fn main() {
     eprint!("File not found: {}\n", input);
     exit(-1);
   }
-  let analyzer = analyzer::Analyzer::open(input, 0.5);
+  let analyzer = analyzer::Analyzer::open(input);
   if analyzer.is_err() {
     eprint!("Failed to open input: {}\n", analyzer.err().unwrap().to_string());
     exit(-1);
