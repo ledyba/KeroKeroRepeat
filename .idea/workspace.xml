@@ -14,9 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="be503551-7c9b-4261-b6f9-e377d78cf938" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.github/workflows/build-docker-image.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/convert-example-file.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/convert-example-file.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/helper/build.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
