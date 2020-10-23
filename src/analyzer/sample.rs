@@ -92,7 +92,50 @@ impl Sample {
   pub fn sample_rate(&self) -> usize {
     self.spec.sample_rate as usize
   }
-  pub fn duration(&self) -> f32 {
-    (self.length as f32) / (self.spec.sample_rate as f32)
+  pub fn duration(&self) -> f64 {
+    self.length as f64 / self.spec.sample_rate as f64
+  }
+  pub fn time_at(&self, idx: usize) -> f64 {
+    idx as f64 / (self.spec.sample_rate as usize * self.spec.channels as usize) as f64
+  }
+  pub fn write_back(&self, output: &str, from: usize, to: usize, window: usize, repeat_count: usize) -> Result<usize, Box<dyn Error>> {
+    let mut writer = hound::WavWriter::create(output, self.spec)?;
+    let mut written: usize = 0;
+    for idx in 0..from * self.channels() {
+      writer.write_sample((self.data[idx] * (i16::MAX as f32)) as i16)?;
+      written += 1;
+    }
+    let repeat_len = to-from;
+    let repeat_samples = repeat_len*self.channels();
+    let repeat_range = 0..repeat_samples;
+    let offset = from;
+    let lower = (window/2);
+    let upper = repeat_len+lower-window;
+    for _ in 0..repeat_count {
+      for idx in repeat_range.clone() {
+        let cnt = idx / self.channels();
+        let sample = if cnt <= lower {
+          let lower_sample = self.data[idx + offset];
+          let upper_sample = self.data[idx + offset + repeat_len - window];
+          let s = (cnt + repeat_len - upper) as f32 / window as f32;
+          lower_sample * s + upper_sample * (1.0-s)
+        } else if cnt >= upper {
+          let lower_sample = self.data[idx + offset + window - repeat_len];
+          let upper_sample = self.data[idx + offset];
+          let s = (cnt-upper) as f32 / window as f32;
+          lower_sample * s + upper_sample * (1.0-s)
+        } else {
+          self.data[idx + offset]
+        };
+        writer.write_sample((sample * (i16::MAX as f32)) as i16)?;
+        written += 1;
+      }
+    }
+    for idx in to * self.channels()..self.length * self.channels() {
+      writer.write_sample((self.data[idx] * (i16::MAX as f32)) as i16)?;
+      written += 1;
+    }
+    writer.flush()?;
+    Ok(written)
   }
 }
