@@ -109,7 +109,7 @@ impl Sample {
     let repeat_samples = repeat_len*self.channels();
     let repeat_range = 0..repeat_samples;
     let offset = from;
-    let lower = (window/2);
+    let lower = window/2;
     let upper = repeat_len+lower-window;
     for _ in 0..repeat_count {
       for idx in repeat_range.clone() {

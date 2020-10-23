@@ -4,7 +4,6 @@ use log::{info, error};
 
 use clap::{App, Arg};
 use std::process::exit;
-use std::str::FromStr;
 
 mod analyzer;
 
