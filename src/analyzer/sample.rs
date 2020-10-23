@@ -101,44 +101,43 @@ impl Sample {
   pub fn write_back(&self, output: &str, from: usize, to: usize, window: usize, repeat_count: usize) -> Result<usize, Box<dyn Error>> {
     let mut writer = hound::WavWriter::create(output, self.spec)?;
     let mut written: usize = 0;
-    /*
     for idx in 0..from * self.channels() {
       writer.write_sample((self.data[idx] * (i16::MAX as f32)) as i16)?;
       written += 1;
     }
-    */
-    let repeat_len = to-from;
-    let repeat_samples = repeat_len*self.channels();
-    let repeat_range = 0..repeat_samples;
-    let offset = from;
-    let lower = window/2;
-    let upper = repeat_len+lower-window;
-    for _ in 0..repeat_count {
-      for idx in repeat_range.clone() {
-        let cnt = idx / self.channels();
-        let sample = if cnt <= lower {
-          let lower_sample = self.data[idx + offset];
-          let upper_sample = self.data[idx + offset + repeat_len - window];
-          let s = (cnt + repeat_len - upper) as f32 / window as f32;
-          lower_sample * s + upper_sample * (1.0-s)
-        } else if cnt >= upper {
-          let lower_sample = self.data[idx + offset + window - repeat_len];
-          let upper_sample = self.data[idx + offset];
-          let s = (cnt-upper) as f32 / window as f32;
-          lower_sample * s + upper_sample * (1.0-s)
-        } else {
-          self.data[idx + offset]
-        };
-        writer.write_sample((sample * (i16::MAX as f32)) as i16)?;
-        written += 1;
+    {
+      let repeat_len = to-from;
+      let repeat_samples = repeat_len*self.channels();
+      let repeat_range = 0..repeat_samples;
+      let offset = from;
+      let lower = window/2;
+      let upper = repeat_len+lower-window;
+
+      for rep_cnt in 0..repeat_count {
+        for idx in repeat_range.clone() {
+          let cnt = idx / self.channels();
+          let sample = if rep_cnt > 0 && cnt <= lower {
+            let lower_sample = self.data[idx + offset];
+            let upper_sample = self.data[idx + offset + repeat_len - window];
+            let s = (cnt + repeat_len - upper) as f32 / window as f32;
+            lower_sample * s + upper_sample * (1.0-s)
+          } else if rep_cnt < repeat_count && cnt >= upper {
+            let lower_sample = self.data[idx + offset + window - repeat_len];
+            let upper_sample = self.data[idx + offset];
+            let s = (cnt-upper) as f32 / window as f32;
+            lower_sample * s + upper_sample * (1.0-s)
+          } else {
+            self.data[idx + offset]
+          };
+          writer.write_sample((sample * (i16::MAX as f32)) as i16)?;
+          written += 1;
+        }
       }
     }
-    /*
     for idx in to * self.channels()..self.length * self.channels() {
       writer.write_sample((self.data[idx] * (i16::MAX as f32)) as i16)?;
       written += 1;
     }
-    */
     writer.flush()?;
     Ok(written)
   }

@@ -91,7 +91,7 @@ fn main() {
   let analyzer = analyzer.unwrap();
   let initial_search_window = matches.value_of("initial-search-window").unwrap().parse::<usize>().unwrap();
   let search_window = matches.value_of("search-window").unwrap().parse::<usize>().unwrap();
-  info!("Loaded {} samples in {} channels ({} sec)", analyzer.total_samples(), analyzer.channels(), analyzer.duration());
+  info!("Loaded {} samples in {} channels ({:.2} sec)", analyzer.total_samples(), analyzer.channels(), analyzer.duration());
   let (mut i,mut j,score) = analyzer.calc_root(initial_search_window);
   let root_level = analyzer.root_level();
   info!("level={} ({}, {}) score={:.5}", root_level, i, j, score);
@@ -112,7 +112,7 @@ fn main() {
   {
     let beg = analyzer.source.time_at(i);
     let end = analyzer.source.time_at(j);
-    info!("Detected repeat range: {} -> {} ({:.2} sec)", beg, end, end-beg);
+    info!("Detected repeat range: {:.2} -> {:.2} ({:.2} sec)", beg, end, end-beg);
   }
   let written = result.unwrap();
   info!("Written {} samples in {} channels ({:.2} sec)", written, analyzer.channels(), written as f64 / analyzer.source.sample_rate() as f64);
