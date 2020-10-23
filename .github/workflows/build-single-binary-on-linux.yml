@@ -20,8 +20,9 @@ jobs:
         run: |
           export RUST_BACKTRACE=1
           mkdir -p artifacts
+          chmod 777 artifacts
           docker build -f 'Dockerfile' -t builder .
-          docker run --rm -v "${PWD}/artifacts:/artifacts" --entrypoint="cp" builder "/home/rust/KeroKeroRepeat" "/artifacts/KeroKeroRepeat"
+          docker run --rm -v "${PWD}/artifacts:/artifacts" --entrypoint='cp' builder '/home/rust/KeroKeroRepeat' '/artifacts'
       - name: Upload result
         uses: actions/upload-artifact@v2
         with:
