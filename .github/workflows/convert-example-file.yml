@@ -1,0 +1,26 @@
+name: Build on Linux
+
+on:
+  push:
+    branches-ignore:
+      - dependabot/**
+  pull_request:
+    branches:
+      - magistra
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate output.wav
+        run: run --package kero_kero_repeat --bin KeroKeroRepeat -- -i input.wav -o output.wav
+      - name: Upload result
+        uses: actions/upload-artifact@v2
+        with:
+          name: output.wav
+          path: output.wav
+
