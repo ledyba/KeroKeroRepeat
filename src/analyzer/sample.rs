@@ -6,7 +6,7 @@ use self::hound::SampleFormat;
 pub struct Sample {
   pub(crate) spec: hound::WavSpec,
   pub(crate) data: Vec<Vec<f32>>,
-  pub(crate) length: usize,
+  pub(crate) size: usize,
   pub(crate) total_samples: usize,
 }
 
@@ -38,14 +38,14 @@ fn read_all_samples<F, T>(reader: &mut hound::WavReader<F>) -> Result<Sample, Bo
     data.push(Vec::new());
   }
   let max = ((1 << spec.bits_per_sample) - 1) as f32;
-  let mut length: usize = 0;
+  let mut size: usize = 0;
   let mut total_samples: usize = 0;
   for v in samples.into_iter() {
     match v {
       Result::Ok(v) => {
         total_samples = total_samples + 1;
         if chan == 0 {
-          length = length + 1;
+          size = size + 1;
         }
         data[chan].push((v as T).to_sample(max));
         chan = (chan + 1) % channels;
@@ -58,7 +58,7 @@ fn read_all_samples<F, T>(reader: &mut hound::WavReader<F>) -> Result<Sample, Bo
   Result::Ok(Sample{
     spec,
     data,
-    length,
+    size,
     total_samples,
   })
 }

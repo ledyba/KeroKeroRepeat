@@ -26,12 +26,11 @@ impl Analyzer {
   }
 
   pub fn duration(&self) -> f32 {
-    (self.source.length as f32) / (self.source.spec.sample_rate as f32)
+    (self.source.size as f32) / (self.source.spec.sample_rate as f32)
   }
 
   pub fn calc_range(&self) {
-    let size = self.source.length;
-
+    let size = self.source.size;
   }
 
   fn calc_score(&self, beg: usize, end: usize) -> f32 {
