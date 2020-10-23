@@ -45,5 +45,5 @@ fn main() {
   }
   let analyzer = analyzer.unwrap();
   print!("Loaded {} samples in {} channels ({} sec)", analyzer.total_samples(), analyzer.channels(), analyzer.duration());
-  analyzer.calc_range();
+
 }

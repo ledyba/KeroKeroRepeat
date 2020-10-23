@@ -4,10 +4,10 @@ use std::error::Error;
 use self::hound::SampleFormat;
 
 pub struct Sample {
-  pub(crate) spec: hound::WavSpec,
-  pub(crate) data: Vec<Vec<f32>>,
-  pub(crate) size: usize,
-  pub(crate) total_samples: usize,
+  spec: hound::WavSpec,
+  pub(crate) data: Vec<f32>,
+  length: usize,
+  total_samples: usize,
 }
 
 trait ToFloatSample {
@@ -30,24 +30,21 @@ fn read_all_samples<F, T>(reader: &mut hound::WavReader<F>) -> Result<Sample, Bo
   where F:std::io::Read, T: ToFloatSample + hound::Sample
 {
   let spec = reader.spec();
-  let mut data: Vec<Vec<f32>> = Vec::new();
+  let mut data: Vec<f32> = Vec::new();
   let samples = reader.samples::<T>();
   let mut chan = 0;
   let channels = spec.channels as usize;
-  for _ in 0..channels {
-    data.push(Vec::new());
-  }
   let max = ((1 << spec.bits_per_sample) - 1) as f32;
-  let mut size: usize = 0;
+  let mut length: usize = 0;
   let mut total_samples: usize = 0;
   for v in samples.into_iter() {
     match v {
       Result::Ok(v) => {
         total_samples = total_samples + 1;
         if chan == 0 {
-          size = size + 1;
+          length = length + 1;
         }
-        data[chan].push((v as T).to_sample(max));
+        data.push((v as T).to_sample(max));
         chan = (chan + 1) % channels;
       },
       Result::Err(err) => {
@@ -58,7 +55,7 @@ fn read_all_samples<F, T>(reader: &mut hound::WavReader<F>) -> Result<Sample, Bo
   Result::Ok(Sample{
     spec,
     data,
-    size,
+    length,
     total_samples,
   })
 }
@@ -80,4 +77,22 @@ pub fn read(file: &str) -> Result<Sample, Box<dyn Error>> {
   }
   let mut reader = opener.unwrap();
   read_all(&mut reader)
+}
+
+impl Sample {
+  pub fn len(&self) -> usize {
+    self.length
+  }
+  pub fn channels(&self) -> usize {
+    self.spec.channels as usize
+  }
+  pub fn total_samples(&self) -> usize {
+    self.total_samples
+  }
+  pub fn sample_rate(&self) -> usize {
+    self.spec.sample_rate as usize
+  }
+  pub fn duration(&self) -> f32 {
+    (self.length as f32) / (self.spec.sample_rate as f32)
+  }
 }
