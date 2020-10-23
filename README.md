@@ -13,9 +13,9 @@ A software to create endless-gif-loops from animation video files.
 ## Demo
 
  - Input: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/input.wav)
- - Output: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/output.wav)
+ - Output: [input.wav](https://github.com/ledyba/KeroKeroRepeat/raw/magistra/output.ogg)
 
-In output.wav, 6.137sec to 53.825sec in input.wav repeats 3 times.
+In output.wav, 6.14 sec to 53.83 sec (47.69 sec) in input.wav repeats 3 times.
 
 ### Use single binary
 
