@@ -6,7 +6,7 @@
 [![Build single binary on Linux](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20single%20binary%20on%20Linux/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+single+binary+on+Linux%22)
 [![Generate example files](https://github.com/ledyba/KeroKeroRepeat/workflows/Generate%20example%20files/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Generate+example+files%22)
 
-Software to create multiple extended loops from an audio file.
+A software to create multiple extended loops from an audio file. 
 
 与えられたオーディオファイルの一部分を不自然でないように何度もループさせたファイル作成するソフト。
 
