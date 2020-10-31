@@ -1,4 +1,4 @@
-# KeroKeroRepeat （ケロ🐸ケロ🐸リピート）
+# KeroKero🐸Repeat （ケロケロ🐸リピート）
 
 [![Build on Linux](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20on%20Linux/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+on+Linux%22)
 [![Build on macOS](https://github.com/ledyba/KeroKeroRepeat/workflows/Build%20on%20macOS/badge.svg)](https://github.com/ledyba/KeroKeroRepeat/actions?query=workflow%3A%22Build+on+macOS%22)
