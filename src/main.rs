@@ -102,14 +102,14 @@ fn main() {
   info!("Loaded {} samples in {} channels ({:.2} sec)", analyzer.total_samples(), analyzer.channels(), analyzer.duration());
   let result = analyzer.calc_root(initial_search_window);
   let root_level = analyzer.root_level();
-  info!("level={} len={} ({}, {}) score={:.5}", root_level, result.3, result.0, result.1, result.2);
+  info!("level={} len={} range=({}, {}) score={:.5}", root_level, result.3, result.0, result.1, result.2);
   let mut i = result.0;
   let mut j = result.1;
   for level in 1..root_level {
     let result = analyzer.calc_layer(search_window, i*2, j*2, root_level - level);
     i = result.0;
     j = result.1;
-    info!("level={} len={} ({}, {}) score={:.5}", root_level - level, result.3, result.0, result.1, result.2);
+    info!("level={} len={} range=({}, {}) score={:.5}", root_level - level, result.3, result.0, result.1, result.2);
   }
   let repeat_window = matches.value_of("repeat-window").unwrap().parse::<usize>().unwrap();
   let repeat_count = matches.value_of("repeat-count").unwrap().parse::<usize>().unwrap();
