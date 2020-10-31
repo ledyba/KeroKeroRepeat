@@ -61,7 +61,7 @@ impl Analyzer {
   }
 
   pub fn calc_root(&self, width: usize) -> (usize, usize, f64) {
-    self.calc_layer(width, 0, width*2, self.root_level())
+    self.calc_layer(width, 0, width, self.root_level())
   }
 
   pub fn calc_layer(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64) {
