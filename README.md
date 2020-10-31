@@ -50,3 +50,7 @@ OPTIONS:
         --repeat-window <repeat-window>                    repeat window [default: 2048]
         --search-window <search-window>                    intermediate search window [default: 512]
 ```
+
+# Why 'KeroKeroRepeat'?
+
+Please listen input file or result file.
