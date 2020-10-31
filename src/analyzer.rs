@@ -89,7 +89,7 @@ impl Analyzer {
       let i_range = max(0, min(fi.0, max_ij - 1))..min(fi.1, max_ij);
       for i in i_range {
         let min_j = i + (width as isize * 2);
-        let j_range = min_j..min(fj.1, max_ij);
+        let j_range = max(min(fj.0, max_ij - 1), min_j)..min(fj.1, max_ij);
         if j_range.len() == 0 {
           continue;
         }
