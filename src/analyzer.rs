@@ -43,7 +43,7 @@ impl Analyzer {
   }
 
   pub fn root_level(&self) -> usize {
-    self.pyramid.len() - 1
+    self.pyramid.len()
   }
 
   fn calc_sum(data: &Vec<f32>, i: usize, j:usize, width: usize) -> f64 {
