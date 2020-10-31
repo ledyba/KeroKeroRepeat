@@ -80,7 +80,7 @@ impl Analyzer {
         let layer = layer.clone();
         sums.push(rt.spawn(async move {
           let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
-          for j in fj..layer_len-width {
+          for j in max(fj, i+width*2)..layer_len-width {
             if ((j as isize - i as isize).abs() as usize) < width * 2 {
               continue;
             }
