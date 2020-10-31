@@ -61,30 +61,41 @@ impl Analyzer {
   }
 
   pub fn calc_root(&self, width: usize) -> (usize, usize, f64, usize) {
-    self.calc_layer(width, 0, width, self.root_level())
+    let layer_len = self.pyramid[self.root_level()-1].data.len() as isize;
+    let w = width as isize;
+    self.calc(width, (0, layer_len-w), (0, layer_len-w), self.root_level())
   }
 
   pub fn calc_layer(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64, usize) {
+    let layer_len = self.pyramid[self.root_level()-1].data.len() as isize;
+    let w = width as isize;
+    let fi = fi as isize;
+    let fj = fj as isize;
+    self.calc(width, (fi-w, fi+w), (fj-w, fj+w), level)
+  }
+
+  fn calc(&self, width: usize, fi: (isize, isize), fj: (isize, isize), level: usize) -> (usize, usize, f64, usize) {
     let layer = self.pyramid[level - 1].clone();
-    let layer_len = layer.data.len();
+    let layer_len = layer.data.len() as isize;
     let rt = tokio::runtime::Builder::new_multi_thread().max_threads(self.num_workers).build();
     if rt.is_err() {
       error!("Failed to initialize runtime: {:?}", rt.unwrap_err());
       std::process::exit(-1);
     }
     let rt = rt.unwrap();
+    let max_ij = layer_len-width as isize;
     rt.block_on(async {
-      let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
+      let mut max_result: (isize, isize, f64) = (0, 0, std::f64::NEG_INFINITY);
       let mut sums = vec![];
-      for i in fi..layer_len-width {
+      for i in max(0, min(fi.0, max_ij - 1))..min(fi.1, max_ij) {
         let layer = layer.clone();
         sums.push(rt.spawn(async move {
-          let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
-          for j in max(fj, i+width*2)..layer_len-width {
-            if ((j as isize - i as isize).abs() as usize) < width * 2 {
+          let mut max_result: (isize, isize, f64) = (0, 0, std::f64::NEG_INFINITY);
+          for j in max(0, min(fj.0, max_ij - 1))..min(fj.1, max_ij) {
+            if ((j-i).abs() as usize) < width*2 {
               continue;
             }
-            let score = Analyzer::calc_sum(&layer.data, i, j, width);
+            let score = Analyzer::calc_sum(&layer.data, i as usize, j as usize, width);
             if max_result.2 < score {
               max_result = (i, j, score);
             }
@@ -98,7 +109,7 @@ impl Analyzer {
           max_result = (i, j, score);
         }
       }
-      (max_result.0, max_result.1, max_result.2, layer_len)
+      (max_result.0 as usize, max_result.1 as usize, max_result.2, layer_len as usize)
     })
   }
 }

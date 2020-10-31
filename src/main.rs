@@ -106,14 +106,14 @@ fn main() {
   let mut i = result.0;
   let mut j = result.1;
   for level in 1..root_level {
-    let result = analyzer.calc_layer(search_window, i*2, j*2, root_level - level);
+    let result = analyzer.calc_layer(search_window, i*2+1, j*2+1, root_level - level);
     i = result.0;
     j = result.1;
     info!("level={} len={} range=({}, {}) score={:.5}", root_level - level, result.3, result.0, result.1, result.2);
   }
   let repeat_window = matches.value_of("repeat-window").unwrap().parse::<usize>().unwrap();
   let repeat_count = matches.value_of("repeat-count").unwrap().parse::<usize>().unwrap();
-  let result = analyzer.source.write_back(output, i, j, repeat_window, repeat_count);
+  let result = analyzer.source.write_back(output, i as usize, j, repeat_window, repeat_count);
   if result.is_err() {
     error!("Failed to open input: {:?}\n", result.unwrap_err());
     exit(-1);
