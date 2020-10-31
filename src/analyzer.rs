@@ -6,22 +6,26 @@ mod sample;
 use sample::Sample;
 use pyramid::Layer;
 use std::cmp::{max, min};
+use log::{error};
+use std::sync::Arc;
 
 pub struct Analyzer {
   pub(crate) source: Sample,
-  pyramid: Vec<Layer>,
+  num_workers: usize,
+  pyramid: Vec<Arc<Layer>>,
 }
 
 impl Analyzer {
-  pub fn open(file: &str, minimum_pyramid_size: usize) -> Result<Analyzer, Box<dyn Error>> {
+  pub fn open(file: &str, num_workers: usize, minimum_pyramid_size: usize) -> Result<Analyzer, Box<dyn Error>> {
     let  source = sample::read(file)?;
-    let mut pyramid: Vec<Layer> = vec![];
-    pyramid.push(pyramid::Layer::from(&source));
+    let mut pyramid: Vec<Arc<Layer>> = vec![];
+    pyramid.push(Arc::new(pyramid::Layer::from(&source)));
     while pyramid[pyramid.len()-1].data.len() > minimum_pyramid_size {
-      pyramid.push(pyramid[pyramid.len()-1].next());
+      pyramid.push(Arc::new(pyramid[pyramid.len()-1].next()));
     }
     return Ok(Analyzer{
       source,
+      num_workers,
       pyramid,
     })
   }
@@ -57,42 +61,44 @@ impl Analyzer {
   }
 
   pub fn calc_root(&self, width: usize) -> (usize, usize, f64) {
-    let mut max_sum:f64 = std::f64::NEG_INFINITY;
-    let mut max_idx:(usize, usize) = (0, 0);
-    let layer = &self.pyramid[self.root_level()];
-    let layer_len = layer.data.len();
-    for i in 0..layer_len-width {
-      for j in i+width*2..layer_len-width {
-        let sum = Analyzer::calc_sum(&layer.data, i, j, width);
-        if sum > max_sum {
-          max_idx = (i, j);
-          max_sum = sum;
-        }
-      }
-    }
-    let (i,j) = max_idx;
-    (i, j, max_sum / width as f64)
+    self.calc_layer(width, 0, width*2, self.root_level())
   }
 
-  pub fn calc_next(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64) {
-    let layer = &self.pyramid[level - 1];
-
-    let mut max_sum:f64 = std::f64::NEG_INFINITY;
-    let mut max_idx:(usize, usize) = (0, 0);
+  pub fn calc_layer(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64) {
+    let layer = self.pyramid[level - 1].clone();
     let layer_len = layer.data.len();
-    for i in max(width, fi*2)-width..min(fi*2+width, layer_len - width) {
-      for j in max(width, fj*2)-width..min(fj*2+width, layer_len - width) {
-        if ((j as isize - i as isize).abs() as usize) < width*2 {
-          continue;
-        }
-        let sum = Analyzer::calc_sum(&layer.data, i, j, width);
-        if sum > max_sum {
-          max_idx = (i, j);
-          max_sum = sum;
+    let rt = tokio::runtime::Builder::new_multi_thread().max_threads(self.num_workers).build();
+    if rt.is_err() {
+      error!("Failed to initialize runtime: {:?}", rt.unwrap_err());
+      std::process::exit(-1);
+    }
+    let rt = rt.unwrap();
+    rt.block_on(async {
+      let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
+      let mut sums = vec![];
+      for i in max(width, fi * 2) - width..min(fi * 2 + width, layer_len - width) {
+        let layer = layer.clone();
+        sums.push(rt.spawn(async move {
+          let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
+          for j in max(width, fj * 2) - width..min(fj * 2 + width, layer_len - width) {
+            if ((j as isize - i as isize).abs() as usize) < width * 2 {
+              continue;
+            }
+            let score = Analyzer::calc_sum(&layer.data, i, j, width);
+            if max_result.2 < score {
+              max_result = (i, j, score);
+            }
+          }
+          max_result
+        }));
+      }
+      for result in futures::future::join_all(sums.into_iter()).await.into_iter() {
+        let (i, j, score) = result.unwrap();
+        if max_result.2 < score {
+          max_result = (i, j, score);
         }
       }
-    }
-    let (i,j) = max_idx;
-    (i, j, max_sum)
+      max_result
+    })
   }
 }

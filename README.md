@@ -43,7 +43,8 @@ FLAGS:
 OPTIONS:
         --initial-search-window <initial-search-window>    initial search window [default: 256]
     -i, --input <input>                                    input wave file
-        --minimum-pyramid-size <minimum-pyramid-size>      initial search window [default: 1024]
+        --minimum-pyramid-size <minimum-pyramid-size>      minimum size of pyramid base [default: 1024]
+        --num-workers <num-workers>                        number of workers [default: 16]
     -o, --output <output>                                  output wave file
     -c, --repeat-count <repeat-count>                      repeat window [default: 10]
         --repeat-window <repeat-window>                    repeat window [default: 2048]

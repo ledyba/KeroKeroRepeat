@@ -23,10 +23,6 @@ impl Layer {
       data,
     }
   }
-
-  pub fn len(&self) -> usize {
-    self.data.len()
-  }
   pub fn next(&self) -> Layer {
     let mut data = Vec::<f32>::new();
     let mut sum: f32 = 0.0;

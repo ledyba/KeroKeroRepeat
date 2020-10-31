@@ -38,8 +38,15 @@ fn main() {
       .required(true)
       .takes_value(true)
       .validator(is_valid_ext))
+    .arg(Arg::with_name("num-workers")
+      .help("number of workers")
+      .long("num-workers")
+      .default_value("16")
+      .required(false)
+      .takes_value(true)
+      .validator(is_number))
     .arg(Arg::with_name("minimum-pyramid-size")
-      .help("initial search window")
+      .help("minimum size of pyramid base")
       .long("minimum-pyramid-size")
       .default_value("1024")
       .required(false)
@@ -82,8 +89,9 @@ fn main() {
     error!("File not found: {}\n", input);
     exit(-1);
   }
+  let num_workers = matches.value_of("num-workers").unwrap().parse::<usize>().unwrap();
   let minimum_pyramid_size = matches.value_of("minimum-pyramid-size").unwrap().parse::<usize>().unwrap();
-  let analyzer = analyzer::Analyzer::open(input, minimum_pyramid_size);
+  let analyzer = analyzer::Analyzer::open(input, num_workers, minimum_pyramid_size);
   if analyzer.is_err() {
     error!("Failed to open input: {}\n", analyzer.err().unwrap().to_string());
     exit(-1);
@@ -96,7 +104,7 @@ fn main() {
   let root_level = analyzer.root_level();
   info!("level={} ({}, {}) score={:.5}", root_level, i, j, score);
   for level in 0..root_level {
-    let ij = analyzer.calc_next(search_window, i, j, root_level - level);
+    let ij = analyzer.calc_layer(search_window, i, j, root_level - level);
     i = ij.0;
     j = ij.1;
     let score = ij.2;
