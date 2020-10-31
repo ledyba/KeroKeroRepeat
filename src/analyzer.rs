@@ -67,7 +67,6 @@ impl Analyzer {
   }
 
   pub fn calc_layer(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64, usize) {
-    let layer_len = self.pyramid[self.root_level()-1].data.len() as isize;
     let w = width as isize;
     let fi = fi as isize;
     let fj = fj as isize;
@@ -83,18 +82,21 @@ impl Analyzer {
       std::process::exit(-1);
     }
     let rt = rt.unwrap();
-    let max_ij = layer_len-width as isize;
+    let max_ij = layer_len-(width as isize);
     rt.block_on(async {
       let mut max_result: (isize, isize, f64) = (0, 0, std::f64::NEG_INFINITY);
       let mut sums = vec![];
-      for i in max(0, min(fi.0, max_ij - 1))..min(fi.1, max_ij) {
+      let i_range = max(0, min(fi.0, max_ij - 1))..min(fi.1, max_ij);
+      for i in i_range {
+        let min_j = i + (width as isize * 2);
+        let j_range = min_j..min(fj.1, max_ij);
+        if j_range.len() == 0 {
+          continue;
+        }
         let layer = layer.clone();
         sums.push(rt.spawn(async move {
           let mut max_result: (isize, isize, f64) = (0, 0, std::f64::NEG_INFINITY);
-          for j in max(0, min(fj.0, max_ij - 1))..min(fj.1, max_ij) {
-            if ((j-i).abs() as usize) < width*2 {
-              continue;
-            }
+          for j in j_range {
             let score = Analyzer::calc_sum(&layer.data, i as usize, j as usize, width);
             if max_result.2 < score {
               max_result = (i, j, score);
