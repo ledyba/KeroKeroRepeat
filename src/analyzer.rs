@@ -60,11 +60,11 @@ impl Analyzer {
     sum / (sum_i * sum_j).sqrt()
   }
 
-  pub fn calc_root(&self, width: usize) -> (usize, usize, f64) {
+  pub fn calc_root(&self, width: usize) -> (usize, usize, f64, usize) {
     self.calc_layer(width, 0, width, self.root_level())
   }
 
-  pub fn calc_layer(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64) {
+  pub fn calc_layer(&self, width: usize, fi: usize, fj: usize, level: usize) -> (usize, usize, f64, usize) {
     let layer = self.pyramid[level - 1].clone();
     let layer_len = layer.data.len();
     let rt = tokio::runtime::Builder::new_multi_thread().max_threads(self.num_workers).build();
@@ -76,11 +76,11 @@ impl Analyzer {
     rt.block_on(async {
       let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
       let mut sums = vec![];
-      for i in max(width, fi * 2) - width..min(fi * 2 + width, layer_len - width) {
+      for i in fi..layer_len-width {
         let layer = layer.clone();
         sums.push(rt.spawn(async move {
           let mut max_result: (usize, usize, f64) = (0, 0, std::f64::NEG_INFINITY);
-          for j in max(width, fj * 2) - width..min(fj * 2 + width, layer_len - width) {
+          for j in fj..layer_len-width {
             if ((j as isize - i as isize).abs() as usize) < width * 2 {
               continue;
             }
@@ -98,7 +98,7 @@ impl Analyzer {
           max_result = (i, j, score);
         }
       }
-      max_result
+      (max_result.0, max_result.1, max_result.2, layer_len)
     })
   }
 }
