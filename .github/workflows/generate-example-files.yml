@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --release --verbose
       - name: Generate output.wav
         run: |
-          cargo run --package kero_kero_repeat --bin KeroKeroRepeat -- \
+          cargo run --release --package kero_kero_repeat --bin KeroKeroRepeat -- \
             -i input.wav -o output.wav -c 3 \
             --minimum-pyramid-size 2048 ---initial-search-window 512 --search-window 1024 --repeat-window 44100
       - name: Upload result

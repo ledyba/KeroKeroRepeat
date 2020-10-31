@@ -13,8 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be503551-7c9b-4261-b6f9-e377d78cf938" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/generate-example-files.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/generate-example-files.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analyzer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzer.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,11 +62,6 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Cargo.Run KeroKeroRepeat" />
@@ -94,7 +89,8 @@
       <workItem from="1589970533024" duration="6657000" />
       <workItem from="1590006742419" duration="1179000" />
       <workItem from="1603819372142" duration="20000" />
-      <workItem from="1604155807692" duration="9489000" />
+      <workItem from="1604155807692" duration="9597000" />
+      <workItem from="1604171323150" duration="33000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1589817931204</created>
