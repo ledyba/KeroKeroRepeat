@@ -1,8 +1,10 @@
 [package]
 name = "kero_kero_repeat"
 version = "0.1.0"
-authors = ["kaede"]
+authors = ["Kaede Fujisaki <kaede@hexe.net>"]
 edition = "2018"
+license = "GPL-3.0-or-later"
+
 
 [[bin]]
 # https://github.com/rust-lang/rust/issues/45127#issuecomment-662325494
