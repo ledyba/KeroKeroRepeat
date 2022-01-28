@@ -4,6 +4,7 @@ use log::{info, error};
 
 use clap::{App, Arg};
 use std::process::exit;
+use anyhow::{ Result, format_err };
 
 mod analyzer;
 
@@ -11,72 +12,72 @@ fn main() {
   env_logger::init_from_env(
     env_logger::Env::from(env_logger::Env::default())
       .default_filter_or("info"));
-  fn is_valid_ext(v: String) -> Result<(), String> {
+  fn is_valid_ext(v: &str) -> Result<()> {
     if v.ends_with(".wav") {
       return Result::Ok(())
     }
-    return Result::Err(format!("Should be wav file: {}", v))
+    return Err(format_err!("Should be wav file: {}", v))
   }
-  fn is_number(v: String) -> Result<(), String> {
-    v.parse::<usize>().map(|_| ()).map_err(|err| err.to_string())
+  fn is_number(v: &str) -> Result<()> {
+    v.parse::<usize>().map(|_| ()).map_err(|err| anyhow::Error::from(err))
   }
   let app = App::new("KeroKeroRepeat")
     .version("0.1.0")
     .author("Kaede Fujisaki")
     .about("Create pseudo infinite sound loops")
-    .arg(Arg::with_name("input")
+    .arg(Arg::new("input")
       .help("input wave file")
-      .short("i")
+      .short('i')
       .long("input")
       .required(true)
       .takes_value(true)
       .validator(is_valid_ext))
-    .arg(Arg::with_name("output")
+    .arg(Arg::new("output")
       .help("output wave file")
-      .short("o")
+      .short('o')
       .long("output")
       .required(true)
       .takes_value(true)
       .validator(is_valid_ext))
-    .arg(Arg::with_name("num-workers")
+    .arg(Arg::new("num-workers")
       .help("number of workers")
       .long("num-workers")
       .default_value("16")
       .required(false)
       .takes_value(true)
       .validator(is_number))
-    .arg(Arg::with_name("minimum-pyramid-size")
+    .arg(Arg::new("minimum-pyramid-size")
       .help("minimum size of pyramid base")
       .long("minimum-pyramid-size")
       .default_value("1024")
       .required(false)
       .takes_value(true)
       .validator(is_number))
-    .arg(Arg::with_name("initial-search-window")
+    .arg(Arg::new("initial-search-window")
       .help("initial search window")
       .long("initial-search-window")
       .default_value("256")
       .required(false)
       .takes_value(true)
       .validator(is_number))
-    .arg(Arg::with_name("search-window")
+    .arg(Arg::new("search-window")
       .help("intermediate search window")
       .long("search-window")
       .default_value("512")
       .required(false)
       .takes_value(true)
       .validator(is_number))
-    .arg(Arg::with_name("repeat-window")
+    .arg(Arg::new("repeat-window")
       .help("repeat window")
       .long("repeat-window")
       .default_value("2048")
       .required(false)
       .takes_value(true)
       .validator(is_number))
-    .arg(Arg::with_name("repeat-count")
+    .arg(Arg::new("repeat-count")
       .help("repeat window")
       .long("repeat-count")
-      .short("-c")
+      .short('c')
       .default_value("10")
       .required(false)
       .takes_value(true)

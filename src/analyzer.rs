@@ -76,7 +76,10 @@ impl Analyzer {
   fn calc(&self, width: usize, fi: (isize, isize), fj: (isize, isize), level: usize) -> (usize, usize, f64, usize) {
     let layer = self.pyramid[level - 1].clone();
     let layer_len = layer.data.len() as isize;
-    let rt = tokio::runtime::Builder::new_multi_thread().max_threads(self.num_workers).build();
+    let rt =
+        tokio::runtime::Builder::new_multi_thread()
+        .worker_threads(self.num_workers)
+        .build();
     if rt.is_err() {
       error!("Failed to initialize runtime: {:?}", rt.unwrap_err());
       std::process::exit(-1);
