@@ -24,7 +24,7 @@ jobs:
             -i input.wav -o output.wav -c 3 \
             --minimum-pyramid-size 2048 ---initial-search-window 512 --search-window 1024 --repeat-window 44100
       - name: Upload result
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: output.wav
           path: output.wav
