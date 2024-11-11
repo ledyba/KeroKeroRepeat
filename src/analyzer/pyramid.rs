@@ -1,8 +1,8 @@
 use crate::analyzer::sample::Sample;
 
 pub struct  Layer {
-  pub(crate) level: usize,
-  pub(crate) data: Vec<f32>,
+  pub level: usize,
+  pub data: Vec<f32>,
 }
 
 impl Layer {

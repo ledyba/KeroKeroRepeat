@@ -29,26 +29,22 @@ then run,
 
 ```bash
 % target/debug/KeroKeroRepeat --help
-KeroKeroRepeat 0.1.0
-Kaede Fujisaki
 Create pseudo infinite sound loops
 
-USAGE:
-    KeroKeroRepeat [OPTIONS] --input <input> --output <output>
+Usage: KeroKeroRepeat.exe [OPTIONS] --input <input>
 
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-OPTIONS:
-        --initial-search-window <initial-search-window>    initial search window [default: 256]
-    -i, --input <input>                                    input wave file
-        --minimum-pyramid-size <minimum-pyramid-size>      minimum size of pyramid base [default: 1024]
-        --num-workers <num-workers>                        number of workers [default: 16]
-    -o, --output <output>                                  output wave file
-    -c, --repeat-count <repeat-count>                      repeat window [default: 10]
-        --repeat-window <repeat-window>                    repeat window [default: 2048]
-        --search-window <search-window>                    intermediate search window [default: 512]
+Options:
+  -v, --verbose...                                     Show verbose message
+  -i, --input <input>                                  input wave file
+  -o, --output <output>                                output wave file
+      --num-workers <num-workers>                      number of workers [default: 16]
+      --minimum-pyramid-size <minimum-pyramid-size>    minimum size of pyramid base [default: 1024]
+      --initial-search-window <initial-search-window>  initial search window [default: 256]
+      --search-window <search-window>                  intermediate search window [default: 512]
+      --repeat-window <repeat-window>                  repeat window [default: 2048]
+  -c, --repeat-count <repeat-count>                    repeat window [default: 10]
+  -h, --help                                           Print help
+  -V, --version                                        Print version
 ```
 
 # Why 'KeroKeroRepeat'?

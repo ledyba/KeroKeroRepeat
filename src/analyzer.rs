@@ -6,7 +6,7 @@ mod sample;
 use sample::Sample;
 use pyramid::Layer;
 use std::cmp::{max, min};
-use log::{error};
+use tracing::error;
 use std::sync::Arc;
 
 pub struct Analyzer {
